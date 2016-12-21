@@ -1,4 +1,4 @@
-module FizzBuzz (fizzBuzz) where
+module FizzBuzz.FizzBuzz (fizzBuzz) where
 
 fizzBuzz n
     | isMultipleOfTwoValues n 3 5 = "FizzBuzz"

@@ -1,6 +1,6 @@
-module FizzBuzzSpec where
+module FizzBuzz.FizzBuzzSpec where
 
-import           FizzBuzz
+import           FizzBuzz.FizzBuzz
 import           Test.Hspec
 import           Test.QuickCheck
 
@@ -9,7 +9,7 @@ spec = describe "FizzBuzz requirements" $ do
       fizzBuzz 3 `shouldBe` "Fizz"
 
     it "returns Buzz if the number is 5" $
-      fizzBuzz 3 `shouldBe` "Fizz"
+      fizzBuzz 5 `shouldBe` "Buzz"
 
     it "returns FizzBuzz if the number is 15" $
       fizzBuzz 15 `shouldBe` "FizzBuzz"
