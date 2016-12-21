@@ -12,10 +12,9 @@ before_install:
   - chmod a+x ~/.local/bin/stack
 
 install:
-  - stack +RTS -N2 -RTS setup
-  - stack +RTS -N2 -RTS build --only-snapshot
+  - stack setup
 
 script:
   - git --version
   - stack --version
-  - stack +RTS -N2 -RTS build --test --haddock --no-haddock-deps
+  - stack build --test
