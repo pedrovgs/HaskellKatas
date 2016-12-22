@@ -9,16 +9,19 @@ add :: String -> Int
 add = addWithDelimiter '\n'
 
 addWithDelimiter :: Char -> String -> Int
-addWithDelimiter delimiter input
+addWithDelimiter delimiter = addWithDelimiters [delimiter]
+
+addWithDelimiters :: String -> String -> Int
+addWithDelimiters delimiter input
     | null input = 0
     | containsDelimiter delimiter input = sumNumbers delimiter input
     | otherwise = read input
 
-containsDelimiter :: Char -> String -> Bool
-containsDelimiter delimiter input = [delimiter] `isInfixOf` input
+containsDelimiter :: String -> String -> Bool
+containsDelimiter delimiter input = delimiter `isInfixOf` input
 
-sumNumbers :: Char -> String -> Int
-sumNumbers delimiter input = sum $ toIntList $ splitOn [delimiter] input
+sumNumbers :: String -> String -> Int
+sumNumbers delimiter input = sum $ toIntList $ splitOn delimiter input
 
 toIntList :: [String] -> [Int]
 toIntList strings = let filteredList = filter (/= "") strings
