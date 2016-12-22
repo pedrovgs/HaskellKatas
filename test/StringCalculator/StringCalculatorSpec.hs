@@ -1,6 +1,7 @@
 module StringCalculator.StringCalculatorSpec where
 
 import           Data.Char
+import           Data.Tuple.Select
 import           StringCalculator.StringCalculator
 import           Test.Hspec
 import           Test.QuickCheck
@@ -19,18 +20,25 @@ spec = describe "StringCalculator requirements" $ do
       add "3\n2\n" `shouldBe` 5
 
     it "returns zero or greater than zero if every number is positive" $
-      verboseCheck prop_sumIsAlwaysGreaterThanZeroIfInputContainsPositiveNumbers
+      property prop_sumIsAlwaysGreaterThanZeroIfInputContainsPositiveNumbers
+
+    it "returns the sum of the positive numbers if every value is positive" $
+      property prop_sumContainsTheSumOfThePositiveValuesIfInputContainsPositiveNumbers
 
 prop_sumIsAlwaysGreaterThanZeroIfInputContainsPositiveNumbers :: Property
 prop_sumIsAlwaysGreaterThanZeroIfInputContainsPositiveNumbers =
-  forAll inputWithPositivesAndDelimiters (\input -> uncurry addWithDelimiter input >= 0)
+  forAll inputWithPositivesAndDelimiters (\input -> addWithDelimiter (sel1 input) (sel2 input) >= 0)
 
-inputWithPositivesAndDelimiters :: Gen (Char, String)
+prop_sumContainsTheSumOfThePositiveValuesIfInputContainsPositiveNumbers :: Property
+prop_sumContainsTheSumOfThePositiveValuesIfInputContainsPositiveNumbers =
+  forAll inputWithPositivesAndDelimiters (\input -> addWithDelimiter (sel1 input) (sel2 input) == sum (sel3 input))
+
+inputWithPositivesAndDelimiters :: Gen (Char, String, [Int])
 inputWithPositivesAndDelimiters =
-         do del <- delimiter
-            numberOfItems <- positive
-            positives <- listOfPositives numberOfItems
-            return (del, mixDelimiterAndPositives del positives)
+  do del <- delimiter
+     numberOfItems <- positive
+     positives <- listOfPositives numberOfItems
+     return (del, mixDelimiterAndPositives del positives, positives)
 
 positive :: Gen Int
 positive = abs `fmap` (arbitrary :: Gen Int) `suchThat` (> 0)
@@ -39,17 +47,17 @@ listOfPositives :: Int ->  Gen [Int]
 listOfPositives size = vectorOf size positive
 
 delimiter :: Gen Char
-delimiter = suchThat arbitrary (/= ' ')
+delimiter = suchThat arbitrary (\n -> n /= ' ' && not (isDigit n))
 
 mixDelimiterAndPositives :: Char -> [Int] -> String
 mixDelimiterAndPositives del positives =
       let listOfChars = generateListOfChars (length positives) del
           positivesAsChar = toCharArray positives
-          tuples = zip positivesAsChar listOfChars;
-      in concatMap (\(a,b) -> [a,b]) tuples
+          tuples = zipWith (\a b -> a ++ [b]) positivesAsChar listOfChars;
+      in concat tuples
 
 generateListOfChars :: Int -> Char -> String
 generateListOfChars numberOfItems del = map (const del) [1..numberOfItems]
 
-toCharArray :: [Int] -> String
-toCharArray numbers = concatMap show numbers
+toCharArray :: [Int] -> [String]
+toCharArray = map show
