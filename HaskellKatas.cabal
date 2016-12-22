@@ -16,7 +16,9 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     FizzBuzz.FizzBuzz
+                     , StringCalculator.StringCalculator
   build-depends:       base >= 4.7 && < 5
+                     , split
   default-language:    Haskell2010
 
 executable HaskellKatas-exe
