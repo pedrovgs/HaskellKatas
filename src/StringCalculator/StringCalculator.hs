@@ -1,21 +1,25 @@
 module StringCalculator.StringCalculator
-(add)
+(add, addWithDelimiter)
 where
 
 import Data.List
 import Data.List.Split
 
 add :: String -> Int
-add input
+add = addWithDelimiter '\n'
+
+addWithDelimiter :: Char -> String -> Int
+addWithDelimiter delimiter input
     | null input = 0
-    | containsDelimiter input "\n" = sumNumbers "\n" input
+    | containsDelimiter delimiter input = sumNumbers delimiter input
     | otherwise = read input
 
-containsDelimiter :: String -> String -> Bool
-containsDelimiter input delimiter = delimiter `isInfixOf` input
+containsDelimiter :: Char -> String -> Bool
+containsDelimiter delimiter input = [delimiter] `isInfixOf` input
 
-sumNumbers :: String -> String -> Int
-sumNumbers delimiter input = sum $ toIntList $ splitOn delimiter input
+sumNumbers :: Char -> String -> Int
+sumNumbers delimiter input = sum $ toIntList $ splitOn [delimiter] input
 
 toIntList :: [String] -> [Int]
-toIntList = map read
+toIntList strings = let filteredList = filter (/= "") strings
+                    in map read filteredList
