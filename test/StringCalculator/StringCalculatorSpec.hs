@@ -13,11 +13,11 @@ spec = describe "StringCalculator requirements" $ do
     it "returns 3 if the input contains just the number 3" $
       add "3" `shouldBe` 3
 
-    it "returns 5 if the input contains a 2 and a 5 separated by a '\n'" $
+    it "returns 5 if the input contains a 2 and a 5 separated by a '\\n'" $
       add "3\n2\n" `shouldBe` 5
 
     it "returns 5 if the input contains a 2 and a 5 separated by a ',''" $
-      add "3\n2\n" `shouldBe` 5
+      add "3,2," `shouldBe` 5
 
     it "returns zero or greater than zero if every number is positive" $
       property prop_sumIsAlwaysGreaterThanZeroIfInputContainsPositiveNumbers
@@ -27,11 +27,11 @@ spec = describe "StringCalculator requirements" $ do
 
 prop_sumIsAlwaysGreaterThanZeroIfInputContainsPositiveNumbers :: Property
 prop_sumIsAlwaysGreaterThanZeroIfInputContainsPositiveNumbers =
-  forAll inputWithPositivesAndDelimiters (\input -> addWithDelimiter (sel1 input) (sel2 input) >= 0)
+  forAll inputWithPositivesAndDelimiters (\input -> add (sel2 input) >= 0)
 
 prop_sumContainsTheSumOfThePositiveValuesIfInputContainsPositiveNumbers :: Property
 prop_sumContainsTheSumOfThePositiveValuesIfInputContainsPositiveNumbers =
-  forAll inputWithPositivesAndDelimiters (\input -> addWithDelimiter (sel1 input) (sel2 input) == sum (sel3 input))
+  forAll inputWithPositivesAndDelimiters (\input -> add (sel2 input) == sum (sel3 input))
 
 inputWithPositivesAndDelimiters :: Gen (Char, String, [Int])
 inputWithPositivesAndDelimiters =
@@ -54,7 +54,7 @@ mixDelimiterAndPositives del positives =
       let listOfChars = generateListOfChars (length positives) del
           positivesAsChar = toCharArray positives
           tuples = zipWith (\a b -> a ++ [b]) positivesAsChar listOfChars;
-      in concat tuples
+      in "//" ++ [del] ++ concat tuples
 
 generateListOfChars :: Int -> Char -> String
 generateListOfChars numberOfItems del = map (const del) [1..numberOfItems]

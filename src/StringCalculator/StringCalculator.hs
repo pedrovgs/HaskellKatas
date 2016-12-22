@@ -1,28 +1,45 @@
 module StringCalculator.StringCalculator
-(add, addWithDelimiter)
+(add)
 where
 
-import Data.List
-import Data.List.Split
+import           Data.Char
+import           Data.List
+import           Data.List.Split
 
 add :: String -> Int
-add = addWithDelimiter '\n'
+add input =
+  if containsCustomDelimiter input then addWithDelimiter (extractDelimiter input) input
+  else addWithDelimiters [",","\n"] input
+
+containsCustomDelimiter :: String -> Bool
+containsCustomDelimiter ""    = False
+containsCustomDelimiter input = "//" `isPrefixOf` input
+
+extractDelimiter :: String -> Char
+extractDelimiter input = head (head (tail ("//" `splitOn` input)))
 
 addWithDelimiter :: Char -> String -> Int
-addWithDelimiter delimiter = addWithDelimiters [delimiter]
+addWithDelimiter delimiter = addWithDelimiters [[delimiter]]
 
-addWithDelimiters :: String -> String -> Int
-addWithDelimiters delimiter input
+addWithDelimiters :: [String] -> String -> Int
+addWithDelimiters delimiters input
     | null input = 0
-    | containsDelimiter delimiter input = sumNumbers delimiter input
+    | containsDelimiter delimiters input = sumNumbers delimiters input
     | otherwise = read input
 
-containsDelimiter :: String -> String -> Bool
-containsDelimiter delimiter input = delimiter `isInfixOf` input
+containsDelimiter :: [String] -> String -> Bool
+containsDelimiter delimiters input = any (`isInfixOf` input) delimiters
 
-sumNumbers :: String -> String -> Int
-sumNumbers delimiter input = sum $ toIntList $ splitOn delimiter input
+sumNumbers :: [String] -> String -> Int
+sumNumbers delimiters input
+    | null delimiters = 0
+    | containsDelimiter [head delimiters] input = sum $ toIntList $ splitOn (head delimiters) input
+    | otherwise = sumNumbers (tail delimiters) input
 
 toIntList :: [String] -> [Int]
-toIntList strings = let filteredList = filter (/= "") strings
-                    in map read filteredList
+toIntList strings = let filteredList = filter isANumber strings
+                    in map (\i -> read i :: Int) filteredList
+
+isANumber :: String -> Bool
+isANumber "" = False
+isANumber value = all isDigit value
