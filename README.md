@@ -1,10 +1,11 @@
-# HaskellKatas [![Build Status](https://travis-ci.org/pedrovgs/HaskellKatas.svg?branch=master)](https://travis-ci.org/pedrovgs/HaskellKatas) 
+# HaskellKatas [![Build Status](https://travis-ci.org/pedrovgs/HaskellKatas.svg?branch=master)](https://travis-ci.org/pedrovgs/HaskellKatas)
 
 Haskell training repository used to learn Haskell and functional programming.
 
 ### List of katas:
 
 * [FizzBuzz](http://codingdojo.org/cgi-bin/index.pl?KataFizzBuzz).
+* [String Calculator](http://osherove.com/tdd-kata-1/)
 
 Developed By
 ------------
