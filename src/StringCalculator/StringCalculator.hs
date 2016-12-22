@@ -23,18 +23,12 @@ addWithDelimiter delimiter = addWithDelimiters [[delimiter]]
 
 addWithDelimiters :: [String] -> String -> Int
 addWithDelimiters delimiters input
-    | null input = 0
-    | containsDelimiter delimiters input = sumNumbers delimiters input
-    | otherwise = read input
+    | null delimiters = 0
+    | containsDelimiter [head delimiters] input = sum $ toIntList $ splitOn (head delimiters) input
+    | otherwise = addWithDelimiters (tail delimiters) input
 
 containsDelimiter :: [String] -> String -> Bool
 containsDelimiter delimiters input = any (`isInfixOf` input) delimiters
-
-sumNumbers :: [String] -> String -> Int
-sumNumbers delimiters input
-    | null delimiters = 0
-    | containsDelimiter [head delimiters] input = sum $ toIntList $ splitOn (head delimiters) input
-    | otherwise = sumNumbers (tail delimiters) input
 
 toIntList :: [String] -> [Int]
 toIntList strings = let filteredList = filter isANumber strings

@@ -18,7 +18,7 @@ spec = describe "FizzBuzz requirements" $ do
       fizzBuzz 1 `shouldBe` "1"
 
     it "returns Fizz if the input is a multiple of 3 and not 5" $
-      verboseCheck prop_justMultipleOfThree
+      property prop_justMultipleOfThree
 
     it "returns Buzz if the input is a a multiple of 5 and not 3" $
       property prop_justMultipleOfFive

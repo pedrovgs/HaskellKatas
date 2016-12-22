@@ -8,16 +8,22 @@ import           Test.QuickCheck
 
 spec = describe "StringCalculator requirements" $ do
     it "returns 0 if the input is empty" $
-      add "" `shouldBe` 0
+      add "" == 0
 
     it "returns 3 if the input contains just the number 3" $
-      add "3" `shouldBe` 3
+      add "3," == 3
 
     it "returns 5 if the input contains a 2 and a 5 separated by a '\\n'" $
-      add "3\n2\n" `shouldBe` 5
+      add "3\n2\n" == 5
 
     it "returns 5 if the input contains a 2 and a 5 separated by a ',''" $
-      add "3,2," `shouldBe` 5
+      add "3,2," == 5
+
+    it "return 0 if the delimiter is customized but there are no numbers" $
+      add "//x" == 0
+
+    it "return 1 if the delimiter is customized and the number inside the string is 1" $
+      add "//x1x" == 1
 
     it "returns zero or greater than zero if every number is positive" $
       property prop_sumIsAlwaysGreaterThanZeroIfInputContainsPositiveNumbers
