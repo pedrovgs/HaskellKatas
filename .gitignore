@@ -4,6 +4,7 @@
 *.tag
 *~
 *_flymake.hs
+*.tix
 .hsenv
 .stack-work/
 /.cabal-sandbox/
