@@ -6,7 +6,8 @@ Haskell training repository used to learn Haskell and functional programming.
 ### List of katas:
 
 * [FizzBuzz](http://codingdojo.org/cgi-bin/index.pl?KataFizzBuzz).
-* [String Calculator](http://osherove.com/tdd-kata-1/)
+* [String calculator](http://osherove.com/tdd-kata-1/)
+* [Finding the right triangle](https://gist.github.com/pedrovgs/32189838165fbe5c9e773ede534b97f4)
 
 ### Executing tests:
 
