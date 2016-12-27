@@ -7,6 +7,7 @@ Haskell training repository used to learn Haskell and functional programming.
 
 * [FizzBuzz](http://codingdojo.org/cgi-bin/index.pl?KataFizzBuzz).
 * [String Calculator](http://osherove.com/tdd-kata-1/)
+* [Rock Paper Scissors Kata](http://agilekatas.co.uk/katas/RockPaperScissors-Kata)
 
 ### Executing tests:
 
