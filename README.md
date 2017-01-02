@@ -9,6 +9,7 @@ Haskell training repository used to learn Haskell and functional programming.
 * [String calculator](http://osherove.com/tdd-kata-1/).
 * [Finding the right triangle](https://gist.github.com/pedrovgs/32189838165fbe5c9e773ede534b97f4).
 * [Rock paper scissors](http://agilekatas.co.uk/katas/RockPaperScissors-Kata).
+* [Bingo](http://agilekatas.co.uk/katas/Bingo-Kata).
 
 
 ### Executing tests:

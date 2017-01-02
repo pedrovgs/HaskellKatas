@@ -19,6 +19,7 @@ library
                      , StringCalculator.StringCalculator
                      , FindingTheRightTriangle.FindingTheRightTriangle
                      , RockPaperScissors.RockPaperScissors
+                     , Bingo.Bingo
   build-depends:       base >= 4.7 && < 5
                      , split
   default-language:    Haskell2010
