@@ -19,20 +19,35 @@ startUSGame = Game [1..75] []
 
 callNumber :: StdGen -> Game -> (Integer, Game, StdGen)
 callNumber gen (Game availableNumbers calledNumbers) = (bingoNumber, Game leftNumbers updatedCalledNumbers, stdGen)
-                 where bingoGeneration = generateValidInt gen availableNumbers
+                 where bingoGeneration = generateBingoAvailableNumber gen availableNumbers
                        bingoNumber = fst bingoGeneration
                        stdGen = snd bingoGeneration
                        currentGameNumbers = availableNumbers
                        leftNumbers = delete bingoNumber currentGameNumbers
                        updatedCalledNumbers = bingoNumber:calledNumbers
 
-generateCard :: Card
-generateCard = undefined
+generateUSCard :: StdGen -> (Card, StdGen)
+generateUSCard stdGen = (Card numbers, newStdGen)
+  where randomValues = randomList [] usBingoNumbers 24 stdGen
+        numbers = fst randomValues
+        newStdGen = snd randomValues
 
 isWinner :: Card -> Game -> Bool
 isWinner = undefined
 
-generateValidInt :: StdGen -> [Integer] -> (Integer, StdGen)
-generateValidInt gen list = (toInteger (fst result), snd result)
+generateBingoAvailableNumber :: StdGen -> [Integer] -> (Integer, StdGen)
+generateBingoAvailableNumber gen list = (bingoNumber, newStdGen)
                       where listSize = length list
-                            result = randomR (1, listSize) gen
+                            random = randomR (0, listSize - 1) gen
+                            position = fst random
+                            newStdGen = snd random
+                            bingoNumber = list !! fromIntegral position
+
+randomList :: [Integer] -> [Integer] -> Integer -> StdGen -> ([Integer], StdGen)
+randomList acc _ 0 stdGen = (acc, stdGen)
+randomList acc availableNumbers n stdGen = randomList newList newAvailableNumbers (n - 1) newStdGen
+  where randomValue = generateBingoAvailableNumber stdGen availableNumbers
+        bingoNumber = fst randomValue
+        newStdGen = snd randomValue
+        newAvailableNumbers = delete bingoNumber availableNumbers
+        newList = bingoNumber : acc

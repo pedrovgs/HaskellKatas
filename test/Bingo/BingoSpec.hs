@@ -13,6 +13,10 @@ spec = describe "Bingo requirements" $ do
         property prop_CallingForANumberAlwaysGeneratesNumbersBetween1And75
     it "when I call a number this is moved form the available numbers list to the called numbers list" $
         property prop_TheNumberExtractedIsMovedToTheCalledNumberList
+    it "when a card is generated contains 24 numbers between 1 and 75" $
+        property prop_TheNumbersInsideACardShouldBeBetween1And75
+    it "when a card is generated does not contain repeated numbers" $
+        property prop_TheNumbersInsideACardShouldNotBeRepeated
 
 prop_CallingForANumberAlwaysGeneratesNumbersBetween1And75 :: StdGen -> Bool
 prop_CallingForANumberAlwaysGeneratesNumbersBetween1And75 stdGen =
@@ -28,15 +32,33 @@ prop_TheNumberExtractedIsMovedToTheCalledNumberList stdGen game =
         finalCalledNumbers = calledNumbers finalGame
         allNumbers = finalAvailableNumbers ++ finalCalledNumbers
 
+prop_TheNumbersInsideACardShouldBeBetween1And75 :: StdGen -> Bool
+prop_TheNumbersInsideACardShouldBeBetween1And75 stdGen =
+  length cardNumbers == 24
+  && all (>=1) cardNumbers
+  && all(<=75) cardNumbers
+  where generatedCard = generateUSCard stdGen
+        cardNumbers = numbers $ fst generatedCard
+
+prop_TheNumbersInsideACardShouldNotBeRepeated :: StdGen -> Bool
+prop_TheNumbersInsideACardShouldNotBeRepeated stdGen =
+  not (any (>1) groupedNumbers)
+  where groupedNumbers = map length $ group cardNumbers
+        generatedCard = generateUSCard stdGen
+        cardNumbers = numbers $ fst generatedCard
 instance Arbitrary StdGen where
   arbitrary = do seed <- arbitrary
                  return (mkStdGen seed)
 
 instance Arbitrary Game where
   arbitrary = do randomInt <- arbitrary
-                 let splitPoint = (randomInt `mod` (length usBingoNumbers - 1) + 1)
+                 let splitPoint = randomInt `mod` (length usBingoNumbers - 1) + 1
                  let splittedNumbers = splitAt splitPoint usBingoNumbers
                  return (Game (sel1 splittedNumbers) (sel2 splittedNumbers))
+
+instance Arbitrary Card where
+  arbitrary = do randomStdGen <- arbitrary
+                 return (Card randomStdGen)
 
 containsAll :: (Eq a) => [a] -> [a] -> Bool
 containsAll l1 l2 = all (`elem` l2) l1
