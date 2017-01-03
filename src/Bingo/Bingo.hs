@@ -56,7 +56,7 @@ pickBingoAvailableNumber gen availableNumbers = (bingoNumber, newStdGen)
 randomList :: [Integer] -> [Integer] -> Integer -> StdGen -> ([Integer], StdGen)
 randomList acc _ 0 stdGen = (acc, stdGen)
 randomList acc availableNumbers n stdGen = randomList newList newAvailableNumbers (n - 1) newStdGen
-  where randomValue = generateBingoAvailableNumber stdGen availableNumbers
+  where randomValue = pickBingoAvailableNumber stdGen availableNumbers
         bingoNumber = fst randomValue
         newStdGen = snd randomValue
         newAvailableNumbers = delete bingoNumber availableNumbers
