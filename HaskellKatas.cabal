@@ -21,6 +21,7 @@ library
                      , FindingTheRightTriangle.FindingTheRightTriangle
                      , RockPaperScissors.RockPaperScissors
                      , Bingo.Bingo
+                     , Potter.Potter
   build-depends:       base >= 4.7 && < 5
                      , split
                      , random
