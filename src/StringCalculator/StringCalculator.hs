@@ -35,5 +35,5 @@ toIntList strings = let filteredList = filter isANumber strings
                     in map (\i -> read i :: Int) filteredList
 
 isANumber :: String -> Bool
-isANumber "" = False
+isANumber ""    = False
 isANumber value = all isDigit value
