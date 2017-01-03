@@ -7,6 +7,7 @@ import           System.Random
 import           Data.Tuple.Select
 import           Data.List
 import           Control.Monad.Identity
+import           Utils.List
 
 spec = describe "Bingo requirements" $ do
     it "when I call a number the number is between 1 and 75" $
@@ -17,6 +18,8 @@ spec = describe "Bingo requirements" $ do
         property prop_TheNumbersInsideACardShouldBeBetween1And75
     it "when a card is generated does not contain repeated numbers" $
         property prop_TheNumbersInsideACardShouldNotBeRepeated
+    it "when a card contains every called number then is a winner card" $
+        property prop_ACardWinsTheBingoIfEveryNumberCalledIsContainedByTheCard
 
 prop_CallingForANumberAlwaysGeneratesNumbersBetween1And75 :: StdGen -> Bool
 prop_CallingForANumberAlwaysGeneratesNumbersBetween1And75 stdGen =
@@ -46,6 +49,14 @@ prop_TheNumbersInsideACardShouldNotBeRepeated stdGen =
   where groupedNumbers = map length $ group cardNumbers
         generatedCard = generateUSCard stdGen
         cardNumbers = numbers $ fst generatedCard
+
+prop_ACardWinsTheBingoIfEveryNumberCalledIsContainedByTheCard :: Game -> Card -> Bool
+prop_ACardWinsTheBingoIfEveryNumberCalledIsContainedByTheCard game card
+  | containsAll cardNumbers gameCalledNumbers = wins card game
+  | otherwise = not $ wins card game
+  where cardNumbers = numbers card
+        gameCalledNumbers = calledNumbers game
+
 instance Arbitrary StdGen where
   arbitrary = do seed <- arbitrary
                  return (mkStdGen seed)
@@ -58,7 +69,4 @@ instance Arbitrary Game where
 
 instance Arbitrary Card where
   arbitrary = do randomStdGen <- arbitrary
-                 return (Card randomStdGen)
-
-containsAll :: (Eq a) => [a] -> [a] -> Bool
-containsAll l1 l2 = all (`elem` l2) l1
+                 return $ fst $ generateUSCard randomStdGen

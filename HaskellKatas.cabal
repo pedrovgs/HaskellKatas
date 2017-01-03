@@ -15,7 +15,8 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     FizzBuzz.FizzBuzz
+  exposed-modules:     Utils.List
+                     , FizzBuzz.FizzBuzz
                      , StringCalculator.StringCalculator
                      , FindingTheRightTriangle.FindingTheRightTriangle
                      , RockPaperScissors.RockPaperScissors

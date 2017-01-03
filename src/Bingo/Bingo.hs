@@ -2,6 +2,7 @@ module Bingo.Bingo where
 
 import           Data.List
 import           System.Random
+import           Utils.List
 
 data Game = Game {
     availableNumbers :: [Integer]
@@ -32,8 +33,10 @@ generateUSCard stdGen = (Card numbers, newStdGen)
         numbers = fst randomValues
         newStdGen = snd randomValues
 
-isWinner :: Card -> Game -> Bool
-isWinner = undefined
+wins :: Card -> Game -> Bool
+wins card game = containsAll cardNumbers gameCalledNumbers
+  where cardNumbers = numbers card
+        gameCalledNumbers = calledNumbers game
 
 generateBingoAvailableNumber :: StdGen -> [Integer] -> (Integer, StdGen)
 generateBingoAvailableNumber gen list = (bingoNumber, newStdGen)
