@@ -9,6 +9,7 @@ Haskell training repository used to learn Haskell and functional programming.
 * [String calculator](http://osherove.com/tdd-kata-1/).
 * [Finding the right triangle](https://gist.github.com/pedrovgs/32189838165fbe5c9e773ede534b97f4).
 * [Rock paper scissors](http://agilekatas.co.uk/katas/RockPaperScissors-Kata).
+* [Bingo](http://agilekatas.co.uk/katas/Bingo-Kata).
 
 
 ### Executing tests:
@@ -26,6 +27,8 @@ stack build --test --coverage
 ```
 
 As some of the tests have been developed using [QuickCheck](https://wiki.haskell.org/Introduction_to_QuickCheck2) if you want to review the input used for our tests you can replace any ``property`` invocation in any spec for ``verboseCheck``. Doing this all the values used as input will be shown on the terminal before to execute any property based test.
+
+Some of our tests and katas work with random values. The Bingo Kata is an example. Remember that you can generate a ``StdGen`` instance from a seed value using ``read "12 33" :: StdGen`` when ``"12 33"`` is the result of ``show mkStdGen 1``.
 
 If you are going to modify the code or just review the implementation from any IDE I strongly recommend you to install [Atom](https://atom.io/) following this [guide](https://github.com/simonmichael/haskell-atom-setup) to set up the whole Haskell environment in a few minutes.
 
