@@ -19,6 +19,7 @@ spec = describe "Bingo requirements" $ do
         property prop_TheNumbersInsideACardShouldNotBeRepeated
     it "when a card contains every called number then is a winner card" $
         property prop_ACardWinsTheBingoIfEveryNumberCalledIsContainedByTheCard
+    -- In the future we will rewrite this Kata using the State Monad.
     it "wins if every number has been called" $
         playNTimesAndExpectToWin 75
     it "does not win if just 23 numbers are called" $

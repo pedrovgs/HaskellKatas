@@ -1,6 +1,12 @@
-module Bingo.Bingo where
+module Bingo.Bingo
+(Game(..)
+, Card(..)
+, usBingoNumbers
+, startUSGame
+, callNumber
+, generateUSCard
+, wins) where
 
-import           Control.Monad.State
 import           Data.List
 import           System.Random
 import           Utils.List
@@ -21,7 +27,7 @@ startUSGame = Game [1..75] []
 
 callNumber :: StdGen -> Game -> (Integer, Game, StdGen)
 callNumber gen (Game availableNumbers calledNumbers) = (bingoNumber, Game leftNumbers updatedCalledNumbers, stdGen)
-                 where bingoGeneration = generateBingoAvailableNumber gen availableNumbers
+                 where bingoGeneration = pickBingoAvailableNumber gen availableNumbers
                        bingoNumber = fst bingoGeneration
                        stdGen = snd bingoGeneration
                        currentGameNumbers = availableNumbers
@@ -39,13 +45,13 @@ wins card game = containsAll cardNumbers gameCalledNumbers
   where cardNumbers = numbers card
         gameCalledNumbers = calledNumbers game
 
-generateBingoAvailableNumber :: StdGen -> [Integer] -> (Integer, StdGen)
-generateBingoAvailableNumber gen list = (bingoNumber, newStdGen)
-                      where listSize = length list
+pickBingoAvailableNumber :: StdGen -> [Integer] -> (Integer, StdGen)
+pickBingoAvailableNumber gen availableNumbers = (bingoNumber, newStdGen)
+                      where listSize = length availableNumbers
                             random = randomR (0, listSize - 1) gen
                             position = fst random
                             newStdGen = snd random
-                            bingoNumber = list !! fromIntegral position
+                            bingoNumber = availableNumbers !! fromIntegral position
 
 randomList :: [Integer] -> [Integer] -> Integer -> StdGen -> ([Integer], StdGen)
 randomList acc _ 0 stdGen = (acc, stdGen)
