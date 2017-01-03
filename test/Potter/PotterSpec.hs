@@ -21,6 +21,10 @@ spec = describe "Potter requirements" $ do
     property prop_BuyFiveDifferentBooksReducedsThePriceA25Percent
   it "if all the books are the same there is no discount" $
     property prop_ThereIsNoDiscountIfTheBooksAreAlwaysTheSame
+  it "2 book1, 2 book2, 2 book3, 1 book4 and 1 book5 costs 51.60 EUR" $
+    calculatePrice [Book1, Book1, Book2, Book2, Book3, Book3, Book4, Book5] `closeEnough` 51.60
+  it "2 book1, 1 book1 costs 23,2 EUR" $
+    calculatePrice [Book1, Book1, Book2]  `closeEnough` 23.2
 
 prop_BuyJustOneBookCostsEightEuros :: Property
 prop_BuyJustOneBookCostsEightEuros = forAll harryPotterBook (\book  -> calculatePrice [book] `closeEnough` 8.0)
