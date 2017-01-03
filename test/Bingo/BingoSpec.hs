@@ -1,12 +1,11 @@
 module Bingo.BingoSpec where
 
 import           Bingo.Bingo
+import           Data.List
+import           Data.Tuple.Select
+import           System.Random
 import           Test.Hspec
 import           Test.QuickCheck
-import           System.Random
-import           Data.Tuple.Select
-import           Data.List
-import           Control.Monad.Identity
 import           Utils.List
 
 spec = describe "Bingo requirements" $ do
@@ -20,6 +19,11 @@ spec = describe "Bingo requirements" $ do
         property prop_TheNumbersInsideACardShouldNotBeRepeated
     it "when a card contains every called number then is a winner card" $
         property prop_ACardWinsTheBingoIfEveryNumberCalledIsContainedByTheCard
+    it "wins if every number has been called" $
+        playNTimesAndExpectToWin 75
+    it "does not win if just 23 numbers are called" $
+        playNTimesAndExpectToLose 23
+
 
 prop_CallingForANumberAlwaysGeneratesNumbersBetween1And75 :: StdGen -> Bool
 prop_CallingForANumberAlwaysGeneratesNumbersBetween1And75 stdGen =
@@ -70,3 +74,21 @@ instance Arbitrary Game where
 instance Arbitrary Card where
   arbitrary = do randomStdGen <- arbitrary
                  return $ fst $ generateUSCard randomStdGen
+
+playNTimesAndExpectToWin :: Int -> Bool
+playNTimesAndExpectToWin n = playNTimesAndExpect n True
+
+playNTimesAndExpectToLose :: Int -> Bool
+playNTimesAndExpectToLose n = playNTimesAndExpect n False
+
+playNTimesAndExpect :: Int -> Bool -> Bool
+playNTimesAndExpect n expectedResult = wins card game == expectedResult
+    where initialGame = startUSGame
+          stdGen = mkStdGen 1
+          (card, stdGen') = generateUSCard stdGen
+          game = callNumberNTimes n stdGen' initialGame
+
+callNumberNTimes :: Int -> StdGen -> Game -> Game
+callNumberNTimes 0 stdGen game = game
+callNumberNTimes n stdGen game = callNumberNTimes (n - 1) newStdGen newGame
+  where (_, newGame, newStdGen) = callNumber stdGen game

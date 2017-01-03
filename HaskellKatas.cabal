@@ -24,6 +24,7 @@ library
   build-depends:       base >= 4.7 && < 5
                      , split
                      , random
+                     , mtl
   default-language:    Haskell2010
 
 executable HaskellKatas-exe

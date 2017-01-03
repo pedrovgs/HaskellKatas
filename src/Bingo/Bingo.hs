@@ -1,5 +1,6 @@
 module Bingo.Bingo where
 
+import           Control.Monad.State
 import           Data.List
 import           System.Random
 import           Utils.List
