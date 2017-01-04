@@ -7,19 +7,19 @@ where
 data RomanNumeral =  I | IV | V | IX | X | L | XC | C | D | CM | M
   deriving (Enum, Eq, Ord, Bounded, Show, Read)
 
-toRoman :: Int -> String
+toRoman :: Integer -> String
 toRoman n = toString $ toRomanInner n []
 
-toArabic :: String -> Int
+toArabic :: String -> Integer
 toArabic roman = toArabicInner roman 0
 
-toRomanInner :: Int -> [RomanNumeral] -> [RomanNumeral]
+toRomanInner :: Integer -> [RomanNumeral] -> [RomanNumeral]
 toRomanInner 0 acc = acc
 toRomanInner n acc = toRomanInner (n - closerRomanValue) (acc++[closerRoman])
   where closerRoman = extractCloserRoman n
         closerRomanValue = romanValue closerRoman
 
-toArabicInner :: String -> Int -> Int
+toArabicInner :: String -> Integer -> Integer
 toArabicInner "" acc = acc
 toArabicInner [x] acc = acc + romanValue (stringToRoman (charToString x))
 toArabicInner (x:y:xs) acc
@@ -27,10 +27,10 @@ toArabicInner (x:y:xs) acc
   | otherwise = toArabicInner (y:xs) (acc + romanValue (stringToRoman [x]))
   where combinedRomans = [x,y]
 
-extractCloserRoman :: Int -> RomanNumeral
+extractCloserRoman :: Integer -> RomanNumeral
 extractCloserRoman n = last $ takeWhile (`canExtract` n) romanNumerals
 
-canExtract :: RomanNumeral -> Int -> Bool
+canExtract :: RomanNumeral -> Integer -> Bool
 canExtract roman n = n - romanValue roman >= 0
 
 romanNumerals :: [RomanNumeral]
@@ -44,7 +44,7 @@ stringRomanNumerals = map show romanNumerals
 isRomanNumeral :: String -> Bool
 isRomanNumeral r = r `elem` stringRomanNumerals
 
-romanValue :: RomanNumeral -> Int
+romanValue :: RomanNumeral -> Integer
 romanValue I  = 1
 romanValue IV = 4
 romanValue V  = 5
