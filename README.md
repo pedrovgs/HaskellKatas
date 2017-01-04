@@ -13,6 +13,7 @@ Haskell training repository used to learn Haskell and functional programming.
 * [Bingo](http://agilekatas.co.uk/katas/Bingo-Kata).
 * [Potter](http://www.codingdojo.org/cgi-bin/index.pl?action=browse&id=KataPotter&revision=41).
 * [Roman numerals](http://codingdojo.org/cgi-bin/index.pl?KataRomanNumerals).
+* [Prime factors](https://www.rubyplus.com/articles/511-TDD-Beyond-Basics-Prime-Factors-Kata).
 
 
 ### Development environment:
