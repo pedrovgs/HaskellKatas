@@ -4,7 +4,7 @@ module RomanNumerals.RomanNumerals
 , toArabic)
 where
 
-data RomanNumeral =  I | IV | V | IX | X | L | XC | C | D | CM | M
+data RomanNumeral =  I | IV | V | IX | X | XL | L | XC | C | CD | D | CM | M
   deriving (Enum, Eq, Ord, Bounded, Show, Read)
 
 toRoman :: Integer -> String
@@ -50,9 +50,11 @@ romanValue IV = 4
 romanValue V  = 5
 romanValue IX = 9
 romanValue X  = 10
+romanValue XL = 40
 romanValue L  = 50
 romanValue XC = 90
 romanValue C  = 100
+romanValue CD  = 400
 romanValue D  = 500
 romanValue CM = 900
 romanValue M  = 1000
