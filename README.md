@@ -11,6 +11,7 @@ Haskell training repository used to learn Haskell and functional programming.
 * [Rock paper scissors](http://agilekatas.co.uk/katas/RockPaperScissors-Kata).
 * [Bingo](http://agilekatas.co.uk/katas/Bingo-Kata).
 * [Potter](http://www.codingdojo.org/cgi-bin/index.pl?action=browse&id=KataPotter&revision=41).
+* [Roman numerals](http://codingdojo.org/cgi-bin/index.pl?KataRomanNumerals)
 
 
 ### Executing tests:
