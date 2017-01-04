@@ -6,8 +6,8 @@ where
 data RomanNumeral =  I | IV | V | IX | X | L | XC | C | D | CM | M
   deriving (Enum, Eq, Ord, Bounded, Show)
 
-toRoman :: Int -> [RomanNumeral]
-toRoman n = toRomanInner n []
+toRoman :: Int -> String
+toRoman n = toString $ toRomanInner n []
 
 -- toArabic
 
@@ -40,3 +40,6 @@ romanValue C  = 100
 romanValue D  = 500
 romanValue CM = 900
 romanValue M  = 1000
+
+toString :: [RomanNumeral] -> String
+toString = foldr ((++) . show) ""
