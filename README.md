@@ -1,7 +1,8 @@
 # HaskellKatas [![Build Status](https://travis-ci.org/pedrovgs/HaskellKatas.svg?branch=master)](https://travis-ci.org/pedrovgs/HaskellKatas)
 
-Haskell training repository used to learn Haskell and functional programming.
+<img alt="Follow me on Twitter" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Haskell-Logo.svg/245px-Haskell-Logo.svg.png" height="60" width="82"/>
 
+Haskell training repository used to learn Haskell and functional programming.
 
 ### List of katas:
 
@@ -11,7 +12,12 @@ Haskell training repository used to learn Haskell and functional programming.
 * [Rock paper scissors](http://agilekatas.co.uk/katas/RockPaperScissors-Kata).
 * [Bingo](http://agilekatas.co.uk/katas/Bingo-Kata).
 * [Potter](http://www.codingdojo.org/cgi-bin/index.pl?action=browse&id=KataPotter&revision=41).
+* [Roman numerals](http://codingdojo.org/cgi-bin/index.pl?KataRomanNumerals).
 
+
+### Development environment:
+
+If you are going to modify the code or just review the implementation from any IDE I strongly recommend you to install [Atom](https://atom.io/) following this [guide](https://github.com/simonmichael/haskell-atom-setup) to set up the whole Haskell environment in a few minutes.
 
 ### Executing tests:
 
@@ -31,10 +37,18 @@ As some of the tests have been developed using [QuickCheck](https://wiki.haskell
 
 Some of our tests and katas work with random values. The Bingo Kata is an example. Remember that you can generate a ``StdGen`` instance from a seed value using ``read "12 33" :: StdGen`` when ``"12 33"`` is the result of ``show mkStdGen 1``.
 
-If you are going to modify the code or just review the implementation from any IDE I strongly recommend you to install [Atom](https://atom.io/) following this [guide](https://github.com/simonmichael/haskell-atom-setup) to set up the whole Haskell environment in a few minutes.
+### Debug logs:
 
+Debug logs are a common way to debug programs. In imperative languages, we can just sprinkle the code with print statements to standard output or to some as log file in order to track debug information (e.g. value of a particular variable, or some human-readable message). In Haskell, however, we cannot output any information other than through the IO monad; and we don't want to introduce that just for debugging. To deal with this problem, the standard library provides the Debug.Trace. That module exports a function called trace which provides a convenient way to attach debug print statements anywhere in a program.
 
-![HaskellLogo](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Haskell-Logo.svg/245px-Haskell-Logo.svg.png)
+You can always add a trace importing the ``Debug.Trace`` module and using the ``trace`` function which receives a ``String`` and a expression ``a -> a`` which will be evaluated as a second param:
+
+```haskell
+fib :: Int -> Int
+fib 0 = 0
+fib 1 = 1
+fib n = trace ("n: " ++ show n) $ fib (n - 1) + fib (n - 2)
+```
 
 Developed By
 ------------

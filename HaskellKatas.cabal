@@ -22,6 +22,7 @@ library
                      , RockPaperScissors.RockPaperScissors
                      , Bingo.Bingo
                      , Potter.Potter
+                     , RomanNumerals.RomanNumerals
   build-depends:       base >= 4.7 && < 5
                      , split
                      , random
