@@ -40,7 +40,7 @@ prop_NonPrimeNumbersContainsAtLeastTwoPrimeFactors = forAll positiveNotPrime
 
 positive :: Gen Integer
 positive = do i <- arbitrary
-              return (abs i + 1)
+              return (abs i + 2)
 
 prime :: Gen Integer
 prime = do i <- arbitrary
