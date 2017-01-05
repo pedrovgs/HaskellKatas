@@ -23,6 +23,7 @@ library
                      , Bingo.Bingo
                      , Potter.Potter
                      , RomanNumerals.RomanNumerals
+                     , PrimeFactors.PrimeFactors
   build-depends:       base >= 4.7 && < 5
                      , split
                      , random
