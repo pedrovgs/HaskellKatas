@@ -3,7 +3,7 @@ version:             0.1.0.0
 synopsis:            Haskell training repository.
 description:         Please see README.md
 homepage:            https://github.com/pedrovgs/HaskellKatas
-license:             Apache
+license:             Apache-2.0
 license-file:        LICENSE
 author:              Pedro Vicente Gómez Sánchez
 maintainer:          pedrovicente.gomez@gmail.com
