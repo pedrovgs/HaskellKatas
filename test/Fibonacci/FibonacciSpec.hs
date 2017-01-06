@@ -1,16 +1,16 @@
 module Fibonacci.FibonacciSpec where
 
-import Test.Hspec
-import Test.QuickCheck
-import Fibonacci.Fibonacci
+import           Fibonacci.Fibonacci
+import           Test.Hspec
+import           Test.QuickCheck
 
 spec = describe "Fibonacci requirements" $ do
   it "tail recursive and regular implementation of the fibonacci sequence returns the same value" $
-    property $ forAll smallValues (\n -> fibonacci n == fibonacciTailRec n)
-  it "tail recursive implementation" $
-    quickCheckWith stdArgs { maxSuccess = 5 } prop_TailRecursiveFibonacci
+    quickCheckWith stdArgs { maxSuccess = 20 }  $ forAll smallValues (\n -> fibonacci n == fibonacciTailRec n)
   it "non tail recursive implementation" $
     quickCheckWith stdArgs { maxSuccess = 5 } prop_NonTailRecursiveFibonacci
+  it "tail recursive implementation" $
+    quickCheckWith stdArgs { maxSuccess = 200 } prop_TailRecursiveFibonacci
 
 prop_NonTailRecursiveFibonacci :: Property
 prop_NonTailRecursiveFibonacci =
@@ -22,7 +22,7 @@ prop_NonTailRecursiveFibonacci =
 
 prop_TailRecursiveFibonacci :: Property
 prop_TailRecursiveFibonacci =
-  forAll smallValues
+  forAll mediumValues
     (\n -> let x = fibonacciTailRec n
                y = fibonacciTailRec (n - 1)
                z = fibonacciTailRec (n - 2)
@@ -34,3 +34,6 @@ positive = do n <- arbitrary
 
 smallValues :: Gen Integer
 smallValues = choose (2, 21)
+
+mediumValues :: Gen Integer
+mediumValues = choose(2, 1000)
