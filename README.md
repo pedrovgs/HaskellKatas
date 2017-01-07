@@ -15,6 +15,7 @@ Haskell training repository used to learn Haskell and functional programming.
 * [Roman numerals](http://codingdojo.org/cgi-bin/index.pl?KataRomanNumerals).
 * [Prime factors](https://www.rubyplus.com/articles/511-TDD-Beyond-Basics-Prime-Factors-Kata).
 * [Fibonacci](https://medium.com/@chmeese/fibonacci-kata-93773b30dbb2#.3opu63eoj).
+* [Contacts](https://github.com/Karumi/KataContactsJava).
 
 
 ### Development environment:
