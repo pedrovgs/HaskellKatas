@@ -7,9 +7,11 @@ import           Test.QuickCheck
 
 spec = describe "Fibonacci requirements" $ do
   it "tail recursive and regular implementation of the fibonacci sequence returns the same value" $
-    verboseCheckWith stdArgs { maxSuccess = 20 }  $ forAll smallValues (\n -> fibonacci n == fibonacciTailRec n)
+    quickCheckWith stdArgs { maxSuccess = 20 }  $ forAll smallValues (\n -> fibonacci n == fibonacciTailRec n)
   it "tail recursive implementation" $
-    verboseCheckWith stdArgs { maxSuccess = 200 } prop_TailRecursiveFibonacci
+    quickCheckWith stdArgs { maxSuccess = 200 } prop_TailRecursiveFibonacci
+  it "negative numbers returns nothing as result for every implementation" $
+    property prop_NegativeNumbersReturnNothing
 
 prop_TailRecursiveFibonacci :: Property
 prop_TailRecursiveFibonacci =
@@ -18,9 +20,17 @@ prop_TailRecursiveFibonacci =
                                             z <- fibonacciTailRec (n - 2)
                                             return (x == y + z)
 
+prop_NegativeNumbersReturnNothing :: Property
+prop_NegativeNumbersReturnNothing = forAll negative $ \n -> isNothing (fibonacci n)
+                                                            && isNothing (fibonacciTailRec n)
+
 positive :: Gen Integer
 positive = do n <- arbitrary
               return (abs n)
+
+negative :: Gen Integer
+negative = do n <- suchThat positive (>0)
+              return (n * (-1))
 
 smallValues :: Gen Integer
 smallValues = choose (2, 21)
