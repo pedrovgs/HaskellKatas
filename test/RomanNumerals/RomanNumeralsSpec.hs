@@ -1,10 +1,10 @@
 module RomanNumerals.RomanNumeralsSpec where
 
+import           Data.Either.Extra
 import           RomanNumerals.RomanNumerals
 import           Test.Hspec
 import           Test.QuickCheck
 import           Utils.List
-import           Data.Either.Extra
 
 spec = describe "RomanNumerals requirements" $ do
   it "translate from arabic to numeral and back to roman should return the same value" $
@@ -17,9 +17,12 @@ spec = describe "RomanNumerals requirements" $ do
     property prop_NegativeArabicReturnsAnError
   it "translate from arabic to numeral using greater than 3000 values returns an error" $
     property prop_GreatherThan3000ReturnsAnError
+  it "translate from roman to arabic using an invalid char returns an error" $
+    toArabic "VIIÑ" == Left NonValidRomanNumeral
 
 prop_TranslateBackToArabic :: Property
-prop_TranslateBackToArabic = forAll numberBetweenZeroAndThreeThousand (\n -> toArabic (fromRight $ toRoman n) == n)
+prop_TranslateBackToArabic = forAll numberBetweenZeroAndThreeThousand
+  (\n -> fromRight (toArabic (fromRight $ toRoman n)) == n)
 
 prop_NonEmptyStrings :: Property
 prop_NonEmptyStrings = forAll nonZeroArabicNumber $ not . null . toRoman
