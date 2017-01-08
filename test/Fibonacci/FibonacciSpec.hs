@@ -8,7 +8,6 @@ import           Test.QuickCheck
 spec = describe "Fibonacci requirements" $ do
   it "tail recursive and regular implementation of the fibonacci sequence returns the same value" $
     verboseCheckWith stdArgs { maxSuccess = 20 }  $ forAll smallValues (\n -> fibonacci n == fibonacciTailRec n)
-
   it "tail recursive implementation" $
     verboseCheckWith stdArgs { maxSuccess = 200 } prop_TailRecursiveFibonacci
 
