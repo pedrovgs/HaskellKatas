@@ -1,5 +1,6 @@
 module RomanNumerals.RomanNumerals
 ( RomanNumeral(..)
+, Error(..)
 , toRoman
 , toArabic)
 where
@@ -7,8 +8,13 @@ where
 data RomanNumeral =  I | IV | V | IX | X | XL | L | XC | C | CD | D | CM | M
   deriving (Enum, Eq, Ord, Bounded, Show, Read)
 
-toRoman :: Integer -> String
-toRoman n = toString $ toRomanInner n []
+data Error = NegativeNumberNotSupported | NumberGreaterThan3000NotSupported deriving (Eq, Enum, Show)
+
+toRoman :: Integer -> Either Error String
+toRoman n
+  | n < 0 = Left NegativeNumberNotSupported
+  | n > 3000 = Left NumberGreaterThan3000NotSupported
+  | otherwise = Right (toString $ toRomanInner n [])
 
 toArabic :: String -> Integer
 toArabic roman = toArabicInner roman 0
