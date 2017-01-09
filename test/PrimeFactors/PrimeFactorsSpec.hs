@@ -38,9 +38,18 @@ prop_NonPrimeNumbersContainsAtLeastTwoPrimeFactors = forAll positiveNotPrime
              numberOfPrimeFactors = length factors
          in numberOfPrimeFactors >= 2)
 
+prop_NegativeNumbersDoesNotHavePrimeFactors :: Property
+prop_NegativeNumbersDoesNotHavePrimeFactors = forAll negative
+  (\n -> let factors = primeFactors n
+         in null factors)
+
 positive :: Gen Integer
 positive = do i <- arbitrary
               return (abs i + 2)
+
+negative :: Gen Integer
+negative = do i <- positive
+              return (i * (-1))
 
 prime :: Gen Integer
 prime = do i <- arbitrary

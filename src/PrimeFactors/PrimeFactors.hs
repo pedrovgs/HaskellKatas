@@ -4,7 +4,7 @@ where
 
 primeFactors :: Integer -> [Integer]
 primeFactors n
-  | n == 1 = []
+  | n <= 1 = []
   | null nextFactor = [n]
   | otherwise = nextFactor ++ primeFactors (n `div` head nextFactor)
   where nextFactor = take 1 $ primesLowerThanN n
