@@ -1,5 +1,6 @@
 module RomanNumerals.RomanNumerals
 ( RomanNumeral(..)
+, Error(..)
 , toRoman
 , toArabic)
 where
@@ -7,11 +8,18 @@ where
 data RomanNumeral =  I | IV | V | IX | X | XL | L | XC | C | CD | D | CM | M
   deriving (Enum, Eq, Ord, Bounded, Show, Read)
 
-toRoman :: Integer -> String
-toRoman n = toString $ toRomanInner n []
+data Error = NegativeNumberNotSupported | NumberGreaterThan3000NotSupported | NonValidRomanNumeral deriving (Eq, Enum, Show)
 
-toArabic :: String -> Integer
-toArabic roman = toArabicInner roman 0
+toRoman :: Integer -> Either Error String
+toRoman n
+  | n < 0 = Left NegativeNumberNotSupported
+  | n > 3000 = Left NumberGreaterThan3000NotSupported
+  | otherwise = Right (toString $ toRomanInner n [])
+
+toArabic :: String -> Either Error Integer
+toArabic roman
+  | containsNonRomanNumeralChar roman = Left NonValidRomanNumeral
+  | otherwise = Right (toArabicInner roman 0)
 
 toRomanInner :: Integer -> [RomanNumeral] -> [RomanNumeral]
 toRomanInner 0 acc = acc
@@ -44,6 +52,9 @@ stringRomanNumerals = map show romanNumerals
 isRomanNumeral :: String -> Bool
 isRomanNumeral r = r `elem` stringRomanNumerals
 
+containsNonRomanNumeralChar :: String -> Bool
+containsNonRomanNumeralChar roman = not $ all isRomanNumeral (map (: []) roman)
+
 romanValue :: RomanNumeral -> Integer
 romanValue I  = 1
 romanValue IV = 4
@@ -54,7 +65,7 @@ romanValue XL = 40
 romanValue L  = 50
 romanValue XC = 90
 romanValue C  = 100
-romanValue CD  = 400
+romanValue CD = 400
 romanValue D  = 500
 romanValue CM = 900
 romanValue M  = 1000
