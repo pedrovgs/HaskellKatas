@@ -11,7 +11,7 @@ Haskell training repository used to learn Haskell and functional programming.
 * [Finding the right triangle](https://gist.github.com/pedrovgs/32189838165fbe5c9e773ede534b97f4).
 * [Rock paper scissors](http://agilekatas.co.uk/katas/RockPaperScissors-Kata).
 * [Bingo](http://agilekatas.co.uk/katas/Bingo-Kata).
-* [Potter](http://www.codingdojo.org/cgi-bin/index.pl?action=browse&id=KataPotter&revision=41).
+* [Potter](http://codingdojo.org/kata/Potter/).
 * [Roman numerals](http://codingdojo.org/cgi-bin/index.pl?KataRomanNumerals).
 * [Prime factors](https://www.rubyplus.com/articles/511-TDD-Beyond-Basics-Prime-Factors-Kata).
 * [Fibonacci](https://medium.com/@chmeese/fibonacci-kata-93773b30dbb2#.3opu63eoj).
