@@ -1,6 +1,6 @@
 # HaskellKatas [![Build Status](https://travis-ci.org/pedrovgs/HaskellKatas.svg?branch=master)](https://travis-ci.org/pedrovgs/HaskellKatas)
 
-<img alt="Follow me on Twitter" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Haskell-Logo.svg/245px-Haskell-Logo.svg.png" height="60" width="82"/>
+<img alt="Follow me on X" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Haskell-Logo.svg/245px-Haskell-Logo.svg.png" height="60" width="82"/>
 
 Haskell training repository used to learn Haskell and functional programming.
 
@@ -58,11 +58,11 @@ Developed By
 
 * Pedro Vicente Gómez Sánchez - <pedrovicente.gomez@gmail.com>
 
-<a href="https://twitter.com/pedro_g_s">
-  <img alt="Follow me on Twitter" src="https://image.freepik.com/iconos-gratis/twitter-logo_318-40209.jpg" height="60" width="60"/>
+<a href="https://x.com/pedro_g_s">
+  <img alt="Follow me on X" src="https://img.icons8.com/?size=100&id=6Fsj3rv2DCmG&format=png&color=000000" height="60" width="60"/>
 </a>
 <a href="https://es.linkedin.com/in/pedrovgs">
-  <img alt="Add me to Linkedin" src="https://image.freepik.com/iconos-gratis/boton-del-logotipo-linkedin_318-84979.png" height="60" width="60"/>
+  <img alt="Add me to Linkedin" src="https://img.icons8.com/m_rounded/512/FFFFFF/linkedin.png" height="60" width="60"/>
 </a>
 
 License
