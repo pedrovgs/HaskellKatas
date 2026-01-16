@@ -1,4 +1,4 @@
-# HaskellKatas [![Build Status](https://travis-ci.org/pedrovgs/HaskellKatas.svg?branch=master)](https://travis-ci.org/pedrovgs/HaskellKatas)
+# HaskellKatas
 
 <img alt="Follow me on X" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Haskell-Logo.svg/245px-Haskell-Logo.svg.png" height="60" width="82"/>
 
